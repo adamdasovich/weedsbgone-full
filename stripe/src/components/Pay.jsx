@@ -4,7 +4,9 @@ import axios from 'axios';
 import { useEffect } from 'react';
 
 const Key = 'pk_test_51MuzAULZirzeNvwx8ODCmGjN7tpZydDabvsj8u1CovXA58GqiSBlbDhGrwJKqU0Q9tLVLfBJ271CPsJUjyugkIhM00vhWc8zMi'
-
+const api = axios.create({
+	baseURL: "http://localhost:5000/api",
+});
 
 const Pay = () => {
 	const [stripeToken, setStripeToken] = useState(null)
@@ -16,7 +18,7 @@ const Pay = () => {
 useEffect(() => {
 	const makeRequest = async () => {
 		try {
-			const response = await axios.post('http://localhost:5000/api/checkout/payment', {
+			const response = await api.post('/checkout/payment', {
 				tokenId: stripeToken.id,
 				amount: 10000
 				})

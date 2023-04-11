@@ -5,6 +5,16 @@ import Newsletter from "../components/Newsletter"
 import Footer from "../components/Footer"
 import { Add, Remove } from "@material-ui/icons"
 import { mobile } from "../responsive"
+import { useLocation } from "react-router-dom"
+import axios from "axios"
+import { publicRequest } from "../requestMethods"
+import { useEffect, useState } from "react"
+import { addProduct } from "../redux/cartRedux"
+import { useDispatch } from "react-redux"
+
+const api = axios.create({
+	baseURL: "http://localhost:5000/api",
+});
 
 const Container = styled.div`
 `
@@ -42,43 +52,24 @@ const Price = styled.span`
 	font-weight: 100;
 	font-size: 40px;
 `
-const FilterContainer = styled.div`
-	width: 50%;
-	margin: 30px 0px;
-	display: flex;
-	justify-content: space-between;
-	${mobile({ width: "100%" })};
-`
-
-const Filter = styled.div`
-	display: flex;
-	align-items: center;
-`
-const FilterTitle = styled.span`
-	font-size: 16px;
+const CordLength = styled.h2`
 	font-weight: 200;
-	margin-right: 5px;
-`
-
-const FilterLength = styled.select`
 	font-size: 16px;
+	margin-top: 50px;
 `
-const FilterOscillator = styled.select`
+const Oscillator = styled.h2`
+	font-weight: 200;
 	font-size: 16px;
+	margin-top: 10px;
 `
-const FilterSize = styled.select`
+
+const Size = styled.h2`
+	font-weight: 200;
 	font-size: 16px;
+	margin-top: 10px;
 `
 
 
-
-const FilterLengthOption = styled.option`
-	
-`
-const FilterOscillatorOption = styled.option`
-`
-const FilterSizeOption = styled.option`
-`
 
 const AddContainer = styled.div`
 	display: flex;
@@ -118,65 +109,65 @@ const Button = styled.button`
 	}
 `
 
-
-
 const Product = () => {
+	const location = useLocation()
+	const id = location.pathname.split("/")[2]
+
+	const [product, setProduct] = useState({})
+	const [quantity, setQuantity] = useState(1)
+	const [size, setSize] = useState('')
+	const [cordLength, setCordLength] = useState('')
+	const [oscillating, setOscillating] = useState('')
+
+	const dispatch = useDispatch()
+
+	useEffect(() => {
+		const getProduct = async () => {
+			try {
+				const res = await publicRequest.get("/products/find/" + id)				
+				setProduct(res.data)
+			} catch (err) {}
+		}
+		getProduct()
+	}, [id])
+
+	const handleQuantity = (type) => {
+		if (type === "dec") {
+			quantity > 1 && setQuantity(quantity - 1)
+		} else {
+			setQuantity(quantity + 1)
+		}
+	}
+
+	const handleClick = () => {
+		setSize(product.size)
+		setCordLength(product.cordLength)
+		setOscillating(product.oscillating)
+		dispatch(addProduct({ ...product, quantity, size, cordLength, oscillating}))		
+	}
+
   return (
 	<Container>
 		<Navbar />
 		<Announcement />
 		<Wrapper>
 			<ImgContainer>
-				<Image src='https://cdn.shopify.com/s/files/1/1257/6551/products/1hpthrusterpic.png?v=1613661914&width=600' />
+				<Image src={product.img} />
 			</ImgContainer>
 			<InfoContainer>
-				<Title>Thruster</Title>
-				<Description>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam
-					quibusdam, voluptatum, quae, voluptates quia voluptatibus quod
-					asperiores voluptate quidem natus quas. Quisquam, quae. Quisquam
-					quibusdam, voluptatum, quae, voluptates quia voluptatibus quod
-					asperiores voluptate quidem natus quas. Quisquam, quae.
-				</Description>
-				<Price>$ 20</Price>
-				<FilterContainer>
-					<Filter>
-						<FilterTitle>Cord Length</FilterTitle>
-						<FilterLength>
-							<FilterLengthOption disabled selected>
-								Cord Length
-							</FilterLengthOption>
-							<FilterLengthOption>50' Cord</FilterLengthOption>
-							<FilterLengthOption>100' Cord</FilterLengthOption>
-							<FilterLengthOption>150' Cord</FilterLengthOption>
-						</FilterLength>
-					</Filter>
-					<Filter>
-					<FilterTitle>Oscillator</FilterTitle>
-						<FilterOscillator>
-							<FilterOscillatorOption disabled selected>
-								Select
-							</FilterOscillatorOption>
-							<FilterOscillatorOption>Yes</FilterOscillatorOption>
-							<FilterOscillatorOption>No</FilterOscillatorOption>
-						</FilterOscillator>
-					</Filter>
-					<Filter>
-						<FilterTitle>Size</FilterTitle>
-						<FilterSize>
-							<FilterSizeOption>1/2 HP</FilterSizeOption>
-							<FilterSizeOption>3/4 HP</FilterSizeOption>
-							<FilterSizeOption>1 HP</FilterSizeOption>
-						</FilterSize>
-					</Filter>
-				</FilterContainer>
+				<Title>{product.title}</Title>
+				<Description>{product.description}</Description>
+				<Price>$ {product.price}</Price>
+				<CordLength>Cord Length: {product.cordLength} ft.</CordLength>
+				<Oscillator>Oscillator: {product.oscillating}</Oscillator>
+				<Size>Motor Size: {product.size} </Size>					
 				<AddContainer>
 					<AmountContainer>
-						<Remove />
-						<Amount>1</Amount>
-						<Add />
+						<Remove onClick={()=>handleQuantity('dec')} />
+						<Amount>{quantity}</Amount>
+						<Add onClick={()=>handleQuantity('inc')} />
 					</AmountContainer>
-					<Button>ADD TO CART</Button>
+					<Button onClick={handleClick} >ADD TO CART</Button>
 				</AddContainer>
 			</InfoContainer>
 		</Wrapper>

@@ -16,17 +16,17 @@ const Container = styled.div`
 `
 
 const Products = ({cat, filters}) => {
-
+	console.log(cat, filters)
 	const [products, setProducts] = useState([])
 	const [filteredProducts, setFilteredProducts] = useState([])
 
 	useEffect(() => {
 		const getProducts = async () => {
 			try {
-				const res = await api.get(cat 
-					? `/products?category=${cat}` 
-					: "/products"
-				);				
+				const catState = cat 
+				? `/products?category=${cat}` 
+				: '/products'
+				const res = await api.get(catState)		
 				setProducts(res.data)
 			} catch (err) {
 				console.log(err)
@@ -36,27 +36,24 @@ const Products = ({cat, filters}) => {
 	}, [cat])
 
 	useEffect(() => {
-		cat && 
+		cat &&	
 			setFilteredProducts(
-				products.filter(p => 
-					Object.entries(filters).every(([key, value]) => 
-						p[key].includes(value)
+				products.filter((item) => 
+					Object.entries(filters).every(([key, value]) =>
+						item[key].includes(value)
 					)
-				)			
-			)
-					
+				)
+			)								
 	}, [products, cat, filters])
+	
 	console.log(filteredProducts)
   return (
 	<Container>
-		{cat ? filteredProducts.map((item) => (
-			<Product item={item} key={item.id} />
-		)) : popularProducts.map((item) => (
-			<Product item={item} key={item.id} />
-		))}
-		{filteredProducts.map((item) => (
-			<Product item={item} key={item.id} />
-		))}
+		{cat 
+			? filteredProducts.map((item) => <Product item={item} key={item.id} />)
+		 	: products
+				.slice(0,8)
+				.map((item) => <Product item={item} key={item.id} />)}
 	</Container>
   )
 }

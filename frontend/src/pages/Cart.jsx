@@ -4,6 +4,7 @@ import Footer from '../components/Footer'
 import Navbar from '../components/Navbar'
 import { Add, Remove } from '@material-ui/icons'
 import { mobile } from '../responsive'
+import { useSelector } from 'react-redux'
 
 const Container = styled.div`
   flex: 4;
@@ -153,6 +154,7 @@ const Button = styled.button`
 
 
 const Cart = () => {
+	const cart = useSelector(state => state.cart)
   return (
 	<Container>
 		<Navbar />
@@ -169,7 +171,7 @@ const Cart = () => {
 			</Top>
 			<Bottom>
 				<Info>
-					<Product>
+					{cart.products.map(product => (<Product>
 						<ProductDetail>
 							<Image src='https://cdn.shopify.com/s/files/1/1257/6551/products/1hpthrusterpic.png?v=1613661914&width=600' />
 							<Details>
@@ -195,35 +197,9 @@ const Cart = () => {
 							</ProductAmountContainer>
 							<ProductPrice>$ 30</ProductPrice>
 						</PriceDetail>
-					</Product>
+					</Product>))}
 					<Hr />
-					<Product>
-						<ProductDetail>
-							<Image src='https://cdn.shopify.com/s/files/1/1257/6551/products/1hpthrusterpic.png?v=1613661914&width=600' />
-							<Details>
-								<ProductName>
-									<b>Product:</b> THRUSTER
-								</ProductName>
-								<ProductId>
-									<b>ID:</b> 93813718293
-								</ProductId>
-								<ProductLength>
-									<b>Length:</b> 50'
-								</ProductLength>
-								<ProductSize>
-									<b>Size:</b> 3/4 HP
-								</ProductSize>
-							</Details>
-						</ProductDetail>
-						<PriceDetail>
-							<ProductAmountContainer>
-								<Add />
-								<ProductAmount>2</ProductAmount>
-								<Remove />
-							</ProductAmountContainer>
-							<ProductPrice>$ 30</ProductPrice>
-						</PriceDetail>
-					</Product>
+					
 				</Info>
 				<Summary>
 					<SummaryTitle>ORDER SUMMARY</SummaryTitle>

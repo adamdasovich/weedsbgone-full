@@ -41,6 +41,7 @@ const Option = styled.option`
 const ProductList = () => {
 	const location = useLocation()
 	const cat = location.pathname.split('/')[2]
+	console.log(cat)
 	const [filters, setFilters] = useState({})
 
 	const handleFilters = (e) => {
@@ -50,11 +51,12 @@ const ProductList = () => {
 			[e.target.name]: value,
 		})
 	}
+	console.log(filters)
   return (
 	<Container>
 		<Navbar />
 		<Announcement />
-		<Title>Thrusters</Title>
+		<Title>{cat}</Title>
 		<FilterContainer>
 			<Filter>
 				<FilterText>Filter Products:</FilterText>
@@ -62,13 +64,13 @@ const ProductList = () => {
 					<Option disabled>
 						Cord Length
 					</Option>
-					<Option>50' Cord</Option>
-					<Option>100' Cord</Option>
-					<Option>150' Cord</Option>
+					<Option>50</Option>
+					<Option>100</Option>
+					<Option>150</Option>
 				</Select>
 				<Select name='oscillating' onChange={handleFilters}>
 					<Option disabled>
-						Oscillator
+						Oscillating
 					</Option>
 					<Option>yes</Option>
 					<Option>no</Option>
@@ -77,9 +79,9 @@ const ProductList = () => {
 					<Option disabled>
 						Size
 					</Option>
-					<Option>1/2 HP</Option>
-					<Option>3/4 HP</Option>
-					<Option>1 HP</Option>
+					<Option>S</Option>
+					<Option>M</Option>
+					<Option>L</Option>
 				</Select>
 			</Filter>
 		</FilterContainer>
