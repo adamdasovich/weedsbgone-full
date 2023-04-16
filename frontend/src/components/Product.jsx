@@ -41,6 +41,7 @@ const Circle = styled.div`
 	position: absolute;
 `
 const Image = styled.img`
+	border-radius: 50%;
 	height: 75%;
 	z-index: 2;
 	`
@@ -62,9 +63,22 @@ const Icon = styled.div`
 		cursor: pointer;
 	}
 `
-const Name = styled.div`
+const Name = styled.h1`
+	color: black;
+	margin: 20px;
+	font-size: 1rem;
+	border: 1px solid black;
+	padding: 10px;
+	border-radius: 10px;
+	text-align: center;
+	background-color: white;
+	opacity: 0.6;
 `
-const Price = styled.div`
+const Price = styled.h1`
+	color: darkorange;
+	margin: 20px;
+	font-size: 1rem;
+
 `
 
 const Product = ({item}) => {
@@ -85,7 +99,7 @@ const Product = ({item}) => {
 				<FavoriteBorderOutlined />
 			</Icon>
 			<Name>{item.title}</Name>
-			<Price>{item.price}</Price>
+			<Price>$ {item.price}</Price>
 		</Info>
 	</Container>
   )

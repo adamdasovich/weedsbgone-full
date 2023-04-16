@@ -143,7 +143,15 @@ const Product = () => {
 		setSize(product.size)
 		setCordLength(product.cordLength)
 		setOscillating(product.oscillating)
-		dispatch(addProduct({ ...product, quantity, size, cordLength, oscillating}))		
+		dispatch(addProduct(
+			{ 
+				...product, 
+				price:product.price, 
+				quantity,
+				size:product.size,
+				cordLength:product.cordLength,
+				oscillating:product.oscillating
+			}))		
 	}
 
   return (

@@ -85,8 +85,7 @@ const Footer = () => {
 		<Left>
 			<Logo>WeedsBGone</Logo>
 			<Description>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit.
-				Quisquam, quod.
+				Trish
 			</Description>
 			<SocialContainer>
 				<SocialIcon color='3b5999'>

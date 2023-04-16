@@ -1,5 +1,9 @@
 import styled from 'styled-components'
 import { mobile } from '../responsive'
+import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { login } from '../redux/apiCalls'
+
 
 const Container = styled.div`
   width: 100vw;
@@ -61,17 +65,41 @@ const Link = styled.a`
   text-decoration: underline;
   cursor: pointer;
 `
-
+const Error = styled.span`
+  color: red;
+  font-size: 12px;
+`
 
 const Login = () => {
+	const [userName, setUserName] = useState('')
+	const [password, setPassword] = useState('')
+	const dispatch = useDispatch()
+	const { isFetching, error } = useSelector(state => state.user)
+	
+
+const handleClick = (e) => {
+	e.preventDefault()
+	login(dispatch, { userName, password })
+	}
+
   return (
 	<Container>
 		<Wrapper>
 			<Title>SIGN IN</Title>
 			<Form>
-				<Input placeholder="username" />
-				<Input placeholder="password" />
-				<Button>LOGIN</Button>
+				<Input 
+					placeholder="username" 
+					onChange={e => setUserName(e.target.value)} />
+				<Input 
+					placeholder="password" 
+					onChange={e => setPassword(e.target.value)} />
+				<Button
+					onClick={handleClick}
+					disabled={isFetching}					
+				>
+					LOGIN
+				</Button>
+				{error && <Error>Something is messed up.</Error>}
 				<Link>DID YOU FORGET YOUR PASSWORD</Link>
 				<Link>CREATE A NEW ACCOUNT</Link>
 			</Form>
