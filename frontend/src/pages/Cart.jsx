@@ -192,7 +192,8 @@ const Cart = () => {
 					})			
 		}
 		token && makeRequest()
-	}, [token, cart, navigate])	
+	}, [token, cart, navigate])
+	
 	
   return (
 	<Container>

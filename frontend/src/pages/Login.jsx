@@ -81,6 +81,7 @@ const handleClick = (e) => {
 	e.preventDefault()
 	login(dispatch, { userName, password })
 	}
+	console.log(userName, password)
 
   return (
 	<Container>
@@ -100,7 +101,7 @@ const handleClick = (e) => {
 					LOGIN
 				</Button>
 				{error && <Error>Something is messed up.</Error>}
-				<Link>DID YOU FORGET YOUR PASSWORD</Link>
+				<Link>DID YOU FORGET YOUR PASSWORD DUMB ASS?</Link>
 				<Link>CREATE A NEW ACCOUNT</Link>
 			</Form>
 		</Wrapper>

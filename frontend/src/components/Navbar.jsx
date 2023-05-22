@@ -65,8 +65,7 @@ const MenuItem = styled.div`
   `
 
 const Navbar = () => {
-	const quantity = useSelector(state => state.cart.quantity)
-	console.log(quantity)
+  const quantity = useSelector(state => state.cart.quantity)
   return (
 	<Container style={{background: 'lightGreen'}}>
 		<Wrapper>
@@ -77,7 +76,7 @@ const Navbar = () => {
 					</ SearchContainer>				
 			</Left>
 			<Center>
-				<Logo>Weeds</Logo>
+				<Logo>Weeds B Gone</Logo>
 			</Center>
 			<Right>
 				<MenuItem>Register</MenuItem>

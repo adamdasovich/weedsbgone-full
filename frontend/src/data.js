@@ -1,14 +1,14 @@
 export const sliderItems = [
 	{
 		id: 1,
-		img: 'https://cdn.shopify.com/s/files/1/1257/6551/products/1hpthrusterpic.png?v=1613661914&width=600',
+		img: 'https://cdn.shopify.com/s/files/1/1257/6551/collections/1hpthrusterpic.png?v=1684423486&width=535',
 		title: 'Summer Sale',
 		description: 'Do not Wait, this is the best deal ever!',
 		bg: 'f5fafd'
 	},
 	{
 		id: 2,
-		img: 'https://cdn.shopify.com/s/files/1/1257/6551/products/750head.jpg?v=1613662223&width=360',
+		img: 'https://cdn.shopify.com/s/files/1/1257/6551/products/thrusterpic3.jpg?v=1684430105&width=1946',
 		title: 'Winter Sale',
 		description: 'Do not Wait, this is the best deal ever!',
 		bg: 'red'
@@ -26,7 +26,7 @@ export const sliderItems = [
 export const categories = [
 	{
 		id: 1,
-		img: 'https://cdn.shopify.com/s/files/1/1257/6551/products/750head.jpg?v=1613662223&width=360',
+		img: 'https://cdn.shopify.com/s/files/1/1257/6551/products/thrusterpic3.jpg?v=1684430105&width=1946',
 		title: "THRUSTERS",
 		cat: 'thrusters'
 	},

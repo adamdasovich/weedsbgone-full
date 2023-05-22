@@ -112,6 +112,7 @@ const Button = styled.button`
 const Product = () => {
 	const location = useLocation()
 	const id = location.pathname.split("/")[2]
+	
 
 	const [product, setProduct] = useState({})
 	const [quantity, setQuantity] = useState(1)
@@ -124,7 +125,7 @@ const Product = () => {
 	useEffect(() => {
 		const getProduct = async () => {
 			try {
-				const res = await publicRequest.get("/products/find/" + id)				
+				const res = await api.get("/products/find/" + id)				
 				setProduct(res.data)
 			} catch (err) {}
 		}
