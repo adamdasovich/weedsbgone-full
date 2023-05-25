@@ -20,6 +20,7 @@ const Left = styled.div`
 	flex: 1;
 	display: flex;
 	flex-direction: column;
+	font-family: 'Roboto', sans-serif;
 	padding: 20px;
 `
 const Logo = styled.h1`
