@@ -9,22 +9,24 @@ const router = require("express").Router();
 
 //UPDATE
 router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+	if (req.body.password) {
+		const hashedPassword = await passwordHash(req.body.password, 10); // Hash the password		
+	};
 	try {
-		const updatedUser = await User.findByIdAndUpdate(
+		const updateUser = await User.findByIdAndUpdate(
 			req.params.id,
 			{
 				$set: req.body,
 			},
 			{ new: true }
 		);
-		res.status(200).json(updatedUser);
+		res.status(200).json(updateUser);
 	} catch (error) {
 		console.log(error)
 		res.status(500).json(error);
 	}
-
-
 });
+
 
 //DELETE
 router.delete("/:id", verifyTokenAndAuthorization, async (req, res) => {

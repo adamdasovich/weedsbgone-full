@@ -23,6 +23,7 @@ app.use(cors({
 	origin: ['http://localhost:3000', 'https://weeds-front.onrender.com'],
 }));
 
+
 app.use(express.static('build'));
 app.use(express.json());
 app.use('/api/users', userRoutes);
